@@ -1,0 +1,229 @@
+﻿@model ELibrarySystem.Models.TeacherFormViewModel
+@{
+    ViewData["Title"] = "Create New Teacher";
+}
+
+<!-- BOOTSTRAP & ICONS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    .title-green {
+        color: #8bc34a;
+        font-size: 34px;
+        font-weight: bold;
+    }
+
+    .section-title {
+        background: #f5f5f5;
+        color: royalblue;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    label {
+        color: #8bc34a;
+        font-weight: 600;
+    }
+
+    .btn-orange {
+        background: #ff6a00;
+        color: white;
+        font-weight: bold;
+        padding: 10px 28px;
+        border-radius: 7px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn-orange:hover {
+            background: #e55a00;
+            color: white;
+        }
+
+    .header-icons i {
+        font-size: 22px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+
+    .alert-success {
+        border-left: 4px solid #28a745;
+        animation: slideIn 0.5s ease-in-out;
+    }
+
+    .alert-danger {
+        border-left: 4px solid #dc3545;
+    }
+
+     slideIn {
+        from
+
+    {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    }
+</style>
+
+<div class="container mt-4">
+
+    <!-- HEADER + ICONS -->
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="title-green">Create New Teacher</div>
+
+        <div class="header-icons">
+            <a href="@Url.Action("ExportTeachers")" title="Download Template">
+                <i class="bi bi-download text-primary"></i>
+            </a>
+
+            <a href="@Url.Action("ImportTeachers")" title="Upload Teachers">
+                <i class="bi bi-upload text-success"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-check-circle-fill"></i>&nbsp;
+            <strong>Success!</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- ERROR MESSAGE -->
+    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <i class="bi bi-exclamation-circle-fill"></i>&nbsp;
+            <strong>Error!</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow mt-3">
+        <div class="card-body">
+
+            <div class="section-title">Enter Teacher Details</div>
+
+            <form asp-action="Index" method="post" novalidate>
+
+                <!-- Validation Summary -->
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <label>Teacher Name *</label>
+                        <input asp-for="TeacherName" class="form-control" required />
+                        <span asp-validation-for="TeacherName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>School *</label>
+                        <select asp-for="SelectedSchoolId" class="form-select" required>
+                            <option value="">--Select School--</option>
+                            @foreach (var school in Model?.Schools ?? new List<ELibrarySystem.Models.School>())
+                            {
+                                <option value="@school.SchoolId">@school.SchoolName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SelectedSchoolId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Email</label>
+                        <input asp-for="EmailId" type="email" class="form-control" />
+                        <span asp-validation-for="EmailId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label>Date of Birth</label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Mobile No.</label>
+                        <input asp-for="TeacherMobileNo" class="form-control" />
+                        <span asp-validation-for="TeacherMobileNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>WhatsApp No.</label>
+                        <input asp-for="TeacherWhatsappNo" class="form-control" />
+                        <span asp-validation-for="TeacherWhatsappNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3">
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <label>Address</label>
+                    <textarea asp-for="TeacherAddress" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="TeacherAddress" class="text-danger"></span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <label>City / Village</label>
+                        <input asp-for="TeacherCity" class="form-control" />
+                        <span asp-validation-for="TeacherCity" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>District</label>
+                        <input asp-for="TeacherDistrict" class="form-control" />
+                        <span asp-validation-for="TeacherDistrict" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>State</label>
+                        <input asp-for="TeacherState" class="form-control" />
+                        <span asp-validation-for="TeacherState" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-orange">Create Login</button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary" style="padding: 10px 28px; margin-left: 10px;">Cancel</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- VALIDATION SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
+<!-- AUTO DISMISS ALERTS AFTER 5 SECONDS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+            setTimeout(function () {
+                var bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 5000);
+        });
+    });
+</script>
