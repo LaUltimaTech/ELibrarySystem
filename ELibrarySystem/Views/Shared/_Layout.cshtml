@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+   
     var title = ViewData["Title"] ?? "Admin Dashboard";
 }
 
@@ -228,8 +228,8 @@
                 <i class="bi bi-chevron-right dropdown-arrow"></i>
             </li>
             <ul class="submenu">
-                <li><a asp-controller="Student" asp-action="Create">Add Student</a></li>
-                <li><a asp-controller="Student" asp-action="Index">Student List</a></li>
+                <li><a asp-controller="Student" asp-action="Index">Add Student</a></li>
+                <li><a asp-controller="StudentList" asp-action="Index">Student List</a></li>
             </ul>
 
             <!-- TEACHER DROPDOWN -->
@@ -238,8 +238,8 @@
                 <i class="bi bi-chevron-right dropdown-arrow"></i>
             </li>
             <ul class="submenu">
-                <li><a asp-controller="Teacher" asp-action="Create">Add Teacher</a></li>
-                <li><a asp-controller="Teacher" asp-action="Index">Teacher List</a></li>
+                <li><a asp-controller="Teacher" asp-action="Index">Add Teacher</a></li>
+                <li><a asp-controller="TeacherList" asp-action="Index">Teacher List</a></li>
             </ul>
 
             <!-- REPORTS (Already working) -->

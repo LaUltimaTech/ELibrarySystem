@@ -15,7 +15,7 @@ namespace ELibrarySystem.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-       
+
         [StringLength(150)]
         public string EmailId { get; set; }
 
@@ -36,6 +36,7 @@ namespace ELibrarySystem.Models
         public long? TeacherWhatsappNo { get; set; }
 
         // Dropdown data
-        public IList<School> Schools { get; set; }
+        public IList<School> Schools { get; set; } = new List<School>();
     }
+
 }

@@ -50,9 +50,12 @@ namespace ELibrarySystem.Models
 
         public long? MotherWhatsappNo { get; set; }
 
-        // Dropdown Lists for Form
-        public IList<School> Schools { get; set; }
-        public IList<Standard> Standards { get; set; }
-        public IList<Division> Divisions { get; set; }
+        
+
+        public IList<School> Schools { get; set; } = new List<School>();
+        public IList<Standard> Standards { get; set; } = new List<Standard>();
+        public IList<Division> Divisions { get; set; } = new List<Division>();
+
+        public IList<SchoolUser>schoolUsers { get; set; } = new List<SchoolUser>(); 
     }
 }

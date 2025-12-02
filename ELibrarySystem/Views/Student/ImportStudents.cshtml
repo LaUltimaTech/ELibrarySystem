@@ -1,0 +1,43 @@
+﻿@model ELibrarySystem.Models.StudentFormViewModel
+@{
+    ViewData["Title"] = "Bulk Student Upload";
+}
+
+<div class="container mt-4">
+    <div class="title-green">Add New Students Bulk</div>
+
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+    {
+        <div class="alert alert-success mt-3">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+    {
+        <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+    }
+
+    <form asp-action="ImportStudents" method="post" enctype="multipart/form-data">
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <label>Select School *</label>
+                <select asp-for="SelectedSchoolId" class="form-select" required>
+                    <option value="">--Select School--</option>
+                    @foreach (var school in Model?.Schools ?? new List<School>())
+                    {
+                        <option value="@school.SchoolId">@school.SchoolName</option>
+                    }
+                </select>
+                <span asp-validation-for="SelectedSchoolId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label>Choose Excel File *</label>
+                <input type="file" name="ExcelFile" class="form-control" accept=".xlsx" required />
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
