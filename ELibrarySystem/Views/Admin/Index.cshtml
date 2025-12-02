@@ -1,0 +1,141 @@
+﻿@model ELibrarySystem.Models.DashboardStatsViewModel
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: #f7f8fc;
+            padding: 25px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .welcome-title {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 35px;
+            background: linear-gradient(90deg, #6366f1, #22c55e, #f59e0b, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-card {
+            border-radius: 10px;
+            background: #fff;
+            padding: 25px;
+            border-left: 5px solid;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: .2s;
+        }
+
+            .stats-card:hover {
+                transform: translateY(-6px);
+            }
+
+        .stats-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stats-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #4b5563;
+        }
+
+        .monthly-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <h1 class="welcome-title">Welcome, Admin</h1>
+
+        <!-- CARDS ROW (3 + 2 layout) -->
+        <div class="row g-4">
+
+            <!-- ROW 1 (3 cards) -->
+            <div class="col-md-4">
+                <a asp-controller="Admin" asp-action="Books">
+                    <div class="stats-card" style="border-color:#3b82f6;">
+                        <div class="stats-title text-primary">TOTAL BOOKS</div>
+                        <div class="stats-value">@Model.TotalBooks</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a asp-controller="Admin" asp-action="Categories">
+                    <div class="stats-card" style="border-color:#22c55e;">
+                        <div class="stats-title text-success">BOOK CATEGORIES</div>
+                        <div class="stats-value">@Model.TotalBookCategories</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a asp-controller="StudentList" asp-action="Index">
+                    <div class="stats-card" style="border-color:#f59e0b;">
+                        <div class="stats-title text-warning">STUDENTS</div>
+                        <div class="stats-value">@Model.TotalStudents</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ROW 2 (2 cards) -->
+            <div class="col-md-4">
+                <a asp-controller="TeacherList" asp-action="Index">
+                    <div class="stats-card" style="border-color:#ef4444;">
+                        <div class="stats-title text-danger">TEACHERS</div>
+                        <div class="stats-value">@Model.TotalTeachers</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a asp-controller="Admin" asp-action="Schools">
+                    <div class="stats-card" style="border-color:#0ea5e9;">
+                        <div class="stats-title text-info">SCHOOLS</div>
+                        <div class="stats-value">@Model.TotalSchools</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Monthly Box -->
+        <div class="monthly-card mt-4">
+            <h5 class="text-primary">Monthly Book Reads</h5>
+            <h3 class="fw-bold text-center text-primary">@Model.MonthlyReads</h3>
+            <p class="text-center text-secondary mb-0">Total books read by students this month</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
